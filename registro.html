@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Registro de alumno</title>
+</head>
+<body>
+  <h1>Registro de alumno</h1>
+  <form id="formRegistro">
+    Nick: <input type="text" id="nick" required><br>
+    Password: <input type="password" id="password" required><br>
+    Nombre: <input type="text" id="nombre" required><br>
+    Apellido: <input type="text" id="apellido" required><br>
+    Centro: 
+    <select id="centro">
+      <option>IES Sardiñeira</option>
+    </select><br>
+    Curso: 
+    <select id="curso">
+      <option>1ESO</option><option>2ESO</option><option>3ESO</option><option>4ESO</option>
+      <option>1BACH</option><option>2BACH</option>
+    </select><br>
+    Clase: 
+    <select id="clase">
+      <option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option>
+    </select><br>
+    <button type="submit">Registrarse</button>
+  </form>
+  <p id="mensaje"></p>
+
+  <script>
+    document.getElementById("formRegistro").addEventListener("submit", function(e){
+      e.preventDefault();
+      const data = {
+        nick: document.getElementById("nick").value,
+        password: document.getElementById("password").value,
+        nombre: document.getElementById("nombre").value,
+        apellido: document.getElementById("apellido").value,
+        centro: document.getElementById("centro").value,
+        curso: document.getElementById("curso").value,
+        clase: document.getElementById("clase").value
+      };
+      fetch("https://script.google.com/macros/s/AKfycby89xa81oPMCBw_x1N7Lj-EATfgBw7xRIjEQHnUVb1nahpMkei-D84ozfoUoXBZQqrb/exec/registro", {
+        method: "POST",
+        body: JSON.stringify(data)
+      })
+      .then(r => r.text())
+      .then(txt => document.getElementById("mensaje").innerText = txt)
+      .catch(err => document.getElementById("mensaje").innerText = "Error: " + err);
+    });
+  </script>
+</body>
+</html>

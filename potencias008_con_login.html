@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Ejercicios - Potencias</title>
+  <style>
+    body { 
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+      padding: 20px; 
+      max-width: 1000px; 
+      margin: 0 auto; 
+      background: linear-gradient(135deg, #6e8efb, #a777e3);
+      color: #333;
+    }
+    .container {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    }
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #3498db;
+    }
+    h2 {
+      color: #3498db;
+      margin-top: 0;
+    }
+    .ejercicio { 
+      margin-bottom: 30px; 
+      padding: 20px; 
+      border: 1px solid #ddd; 
+      border-radius: 8px; 
+      background-color: #f9f9f9;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    input { 
+      width: 40px; 
+      text-align: center; 
+      padding: 4px;
+      margin: 0 2px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+    .base-input {
+      font-size: 1.2em;
+      font-weight: bold;
+    }
+    .exp-input {
+      font-size: 0.8em;
+      vertical-align: super;
+      position: relative;
+      top: -5px;
+    }
+    select { 
+      margin: 5px; 
+      padding: 8px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+    button { 
+      margin: 15px 5px; 
+      padding: 12px 20px; 
+      background: #3498db;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: all 0.3s;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    button:hover {
+      background: #2980b9;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    }
+    .resultado { 
+      font-weight: bold; 
+      margin-top: 15px;
+      padding: 10px;
+      border-radius: 4px;
+      text-align: center;
+    }
+    .correcto {
+      background-color: #d4edda;
+      color: #155724;
+    }
+    .incorrecto {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+    #estado {
+      padding: 15px;
+      margin-top: 20px;
+      border-radius: 6px;
+      text-align: center;
+      font-weight: bold;
+    }
+    .enviado {
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+    .error {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+    .pista {
+      font-style: italic;
+      color: #7f8c8d;
+      font-size: 0.9em;
+      margin-top: 10px;
+    }
+    .datos-alumno {
+      background-color: #e8f4fc;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 25px;
+    }
+    .base {
+      font-size: 1.2em;
+      font-weight: bold;
+    }
+    .exp {
+      font-size: 0.8em;
+      vertical-align: super;
+      position: relative;
+      top: -5px;
+    }
+    .expresion-matematica {
+      font-size: 1.2em;
+      margin: 15px 0;
+      padding: 10px;
+      background-color: #f0f8ff;
+      border-radius: 6px;
+      text-align: center;
+    }
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+    @media (max-width: 768px) {
+      .grid-container {
+        grid-template-columns: 1fr;
+      }
+    }
+    .input-resultado {
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      margin-left: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎓 Ejercicios de Potencias</h1>
+
+    <!-- Datos del alumno -->
+    <div class="datos-alumno">
+      <h2>Identificación del alumno</h2>
+      <p>
+        Centro: <b>IES Sardiñeira</b><br>
+        Curso: 
+        <select id="curso">
+          <option>1ESO</option>
+          <option>2ESO</option>
+          <option>3ESO</option>
+          <option>4ESO</option>
+          <option>1BACH</option>
+          <option>2BACH</option>
+        </select>
+        Clase: 
+        <select id="clase">
+          <option>A</option><option>B</option><option>C</option>
+          <option>D</option><option>E</option><option>F</option>
+        </select>
+        Número: 
+        <select id="numero"></select>
+      </p>
+    </div>
+
+    <!-- Ejercicio 1 -->
+    <div class="ejercicio" id="ej1">
+      <h2>🔢 Ejercicio 1: Producto repetido → Potencia</h2>
+      <div id="ej1contenedor"></div>
+      <p id="res1" class="resultado"></p>
+    </div>
+
+    <!-- Ejercicio 2 -->
+    <div class="ejercicio" id="ej2">
+      <h2>🧠 Ejercicio 2: Propiedades de las potencias</h2>
+      <div id="ej2contenedor"></div>
+      <p id="res2" class="resultado"></p>
+    </div>
+
+    <!-- Ejercicio 3 -->
+    <div class="ejercicio" id="ej3">
+      <h2>📊 Ejercicio 3: Calcular el resultado de la potencia</h2>
+      <div id="ej3contenedor"></div>
+      <p id="res3" class="resultado"></p>
+    </div>
+
+    <!-- Ejercicio 4: Problema con potencias -->
+    <div class="ejercicio" id="ej4">
+      <h2>📦 Ejercicio 4: Problema con potencias</h2>
+      <div id="ej4contenedor"></div>
+      <p id="res4" class="resultado"></p>
+    </div>
+
+    <!-- Ejercicio 5: Completar exponentes -->
+    <div class="ejercicio" id="ej5">
+      <h2>➗✖️ Ejercicio 5: Completar exponentes</h2>
+      <div id="ej5contenedor"></div>
+      <p id="res5" class="resultado"></p>
+    </div>
+
+    <!-- Ejercicio 6: Potencia de potencia -->
+    <div class="ejercicio" id="ej6">
+      <h2>🔁 Ejercicio 6: Potencia de potencia</h2>
+      <div id="ej6contenedor"></div>
+      <p id="res6" class="resultado"></p>
+    </div>
+
+    <!-- Ejercicio 7: Expresar como una sola potencia -->
+    <div class="ejercicio" id="ej7">
+      <h2>✨ Ejercicio 7: Expresar como una sola potencia</h2>
+      <div id="ej7contenedor"></div>
+      <p id="res7" class="resultado"></p>
+    </div>
+
+    <!-- Ejercicio 8: Potencias misma base y exponente -->
+    <div class="ejercicio" id="ej8">
+      <h2>🔍 Ejercicio 8: Completar igualdades</h2>
+      <div id="ej8contenedor"></div>
+      <p id="res8" class="resultado"></p>
+    </div>
+
+    <!-- Ejercicio 9: Potencias combinadas -->
+    <div class="ejercicio" id="ej9">
+      <h2>🔟 Ejercicio 9: Potencias combinadas</h2>
+      <div id="ej9contenedor"></div>
+      <p id="res9" class="resultado"></p>
+    </div>
+
+    <!-- Botones -->
+    <div style="text-align: center;">
+      <button onclick="comprobar()">✅ Comprobar todo</button>
+      <button onclick="enviarResultados()">📤 Enviar resultados</button>
+      <button onclick="generarNuevaHoja()">🔄 Generar nueva hoja</button>
+    </div>
+    <p id="estado"></p>
+  </div>
+
+  <script>
+    // Verificar login
+    if (!localStorage.getItem('nick')) {
+      window.location.href = 'login.html';
+    }
+
+    let nota = 0;
+    let soluciones = {}; // guardamos soluciones correctas
+    const totalEjercicios = 9; // actualizado a 9 ejercicios
+
+    // Inicializar al cargar
+    window.onload = function() {
+      // Rellenar desplegable número 1..33
+      const select = document.getElementById("numero");
+      for (let i = 1; i <= 33; i++) {
+        let opt = document.createElement("option");
+        opt.value = i;
+        opt.text = i;
+        select.add(opt);
+      }
+
+      generarTodosEjercicios();
+    };
+
+    function generarTodosEjercicios() {
+      generarEj1();
+      generarEj2();
+      generarEj3();
+      generarEj4();
+      generarEj5();
+      generarEj6();
+      generarEj7();
+      generarEj8();
+      generarEj9();
+    }
+
+    // Generar Ejercicio 1
+    function generarEj1() {
+      const cont = document.getElementById("ej1contenedor");
+      cont.innerHTML = "";
+      for (let i = 0; i < 4; i++) {
+        let base = Math.floor(Math.random() * 10) + 1;
+        let rep = Math.floor(Math.random() * 5) + 3;
+        let texto = Array(rep).fill(base).join(" · ");
+        let id = "ej1_" + i;
+        soluciones[id] = rep;
+        cont.innerHTML += `<p>${String.fromCharCode(97+i)}) ${texto} = 
+          <span class="base">${base}</span><sup><input type="number" id="${id}" class="exp-input"></sup></p>`;
+      }
+    }
+
+    // Generar Ejercicio 2
+    function generarEj2() {
+      const cont = document.getElementById("ej2contenedor");
+      cont.innerHTML = "";
+
+      for (let i = 0; i < 3; i++) {
+        let base = Math.floor(Math.random() * 10) + 1;
+        let exp1 = Math.floor(Math.random() * 8);
+        let exp2 = Math.floor(Math.random() * 8);
+        let id = "ej2_" + i;
+        soluciones[id] = exp1 + exp2;
+        cont.innerHTML += `<p>${String.fromCharCode(97+i)}) 
+          <span class="base">${base}</span><sup>${exp1}</sup> · 
+          <span class="base">${base}</span><sup>${exp2}</sup> = 
+          <span class="base">${base}</span><sup><input type="number" id="${id}" class="exp-input"></sup></p>`;
+      }
+
+      for (let i = 3; i < 6; i++) {
+        let base = Math.floor(Math.random() * 10) + 1;
+        let exp1 = Math.floor(Math.random() * 4) + 4;
+        let exp2 = Math.floor(Math.random() * exp1);
+        let id = "ej2_" + i;
+        soluciones[id] = exp1 - exp2;
+        cont.innerHTML += `<p>${String.fromCharCode(97+i)}) 
+          <span class="base">${base}</span><sup>${exp1}</sup> ÷ 
+          <span class="base">${base}</span><sup>${exp2}</sup> = 
+          <span class="base">${base}</span><sup><input type="number" id="${id}" class="exp-input"></sup></p>`;
+      }
+    }
+
+    // Generar Ejercicio 3
+    function generarEj3() {
+      const cont = document.getElementById("ej3contenedor");
+      cont.innerHTML = "";
+
+      for (let i = 0; i < 3; i++) {
+        let base = Math.floor(Math.random() * 11); // 0-10
+        let exp = Math.floor(Math.random() * 5);   // 0-4
+        let id = "ej3_" + i;
+        soluciones[id] = Math.pow(base, exp);
+        cont.innerHTML += `<p>${String.fromCharCode(97+i)}) 
+          <span class="base">${base}</span><sup>${exp}</sup> = 
+          <input type="number" id="${id}"></p>`;
+      }
+    }
+
+    // Generar Ejercicio 4: Problema con potencias
+    function generarEj4() {
+      const cont = document.getElementById("ej4contenedor");
+      cont.innerHTML = "";
+      
+      // Generar un número aleatorio entre 3 and 12 (mismo valor para todo)
+      const valor = Math.floor(Math.random() * 10) + 3;
+      
+      // Guardar la solución (base y exponente)
+      soluciones["ej4_base"] = valor;
+      soluciones["ej4_exp"] = 3;
+      
+      cont.innerHTML = `
+        <p>Si tengo ${valor} cajas, cada caja contiene ${valor} paquetes, 
+        y cada paquete tiene ${valor} chicles, ¿cuántos chicles tengo en total?</p>
+        <p>Expresa el resultado en forma de potencia: 
+        <input type="number" id="ej4_base" class="base-input"><sup><input type="number" id="ej4_exp" class="exp-input"></sup></p>
+        <p class="pista">Pista: Fíjate que todos los números son iguales, así que puedes expresarlo como una potencia.</p>
+      `;
+    }
+
+    // Generar Ejercicio 5: Completar exponentes
+    function generarEj5() {
+      const cont = document.getElementById("ej5contenedor");
+      cont.innerHTML = "";
+      
+      // Apartado a: base^? · (base^exp1 : base^exp2) = base^exp3
+      const baseA = Math.floor(Math.random() * 9) + 1; // Base entre 1 y 9
+      const exp1A = Math.floor(Math.random() * 7) + 3; // Exponente 1 entre 3 y 9
+      const exp2A = Math.floor(Math.random() * (exp1A - 1)) + 1; // Exponente 2 entre 1 y exp1A-1
+      const exp3A = exp1A - exp2A; // Resultado de la división
+      const incognitaA = Math.floor(Math.random() * 5) + 1; // Exponente incógnita entre 1 y 5
+      const resultadoA = incognitaA + exp3A; // Resultado final
+      
+      soluciones["ej5_a"] = incognitaA;
+      
+      // Apartado b: (base^exp1 : base^exp2) · base^exp3 = base^?
+      const baseB = Math.floor(Math.random() * 9) + 1; // Base entre 1 y 9
+      const exp1B = Math.floor(Math.random() * 7) + 3; // Exponente 1 entre 3 and 9
+      const exp2B = Math.floor(Math.random() * (exp1B - 1)) + 1; // Exponente 2 entre 1 and exp1B-1
+      const exp3B = Math.floor(Math.random() * 5) + 1; // Exponente 3 entre 1 and 5
+      const resultadoB = (exp1B - exp2B) + exp3B; // Resultado final
+      
+      soluciones["ej5_b"] = resultadoB;
+      
+      cont.innerHTML = `
+        <div class="expresion-matematica">
+          <p>a) <span class="base">${baseA}</span><sup><input type="number" id="ej5_a" class="exp-input"></sup> · 
+          (<span class="base">${baseA}</span><sup>${exp1A}</sup> : <span class="base">${baseA}</span><sup>${exp2A}</sup>) = 
+          <span class="base">${baseA}</span><sup>${resultadoA}</sup></p>
+        </div>
+        <div class="expresion-matematica">
+          <p>b) (<span class="base">${baseB}</span><sup>${exp1B}</sup> : <span class="base">${baseB}</span><sup>${exp2B}</sup>) · 
+          <span class="base">${baseB}</span><sup>${exp3B}</sup> = 
+          <span class="base">${baseB}</span><sup><input type="number" id="ej5_b" class="exp-input"></sup></p>
+        </div>
+      `;
+    }
+
+    // Generar Ejercicio 6: Potencia de potencia
+    function generarEj6() {
+      const cont = document.getElementById("ej6contenedor");
+      cont.innerHTML = "";
+      
+      let contenidoHTML = '<div class="grid-container">';
+      
+      // Generar 6 apartados (a-f)
+      for (let i = 0; i < 6; i++) {
+        const base = Math.floor(Math.random() * 12) + 1; // Base entre 1 y 12
+        const exp1 = Math.floor(Math.random() * 13); // Primer exponente entre 0 y 12
+        const exp2 = Math.floor(Math.random() * 13); // Segundo exponente entre 0 y 12
+        const resultado = exp1 * exp2; // Resultado de la potencia de potencia
+        
+        const id = "ej6_" + i;
+        soluciones[id] = resultado;
+        
+        contenidoHTML += `
+          <div class="expresion-matematica">
+            <p>${String.fromCharCode(97+i)}) (<span class="base">${base}</span><sup>${exp1}</sup>)<sup>${exp2}</sup> = 
+            <span class="base">${base}</span><sup><input type="number" id="${id}" class="exp-input"></sup></p>
+          </div>
+        `;
+      }
+      
+      contenidoHTML += '</div>';
+      cont.innerHTML = contenidoHTML;
+    }
+
+    // Generar Ejercicio 7: Expresar como una sola potencia
+    function generarEj7() {
+      const cont = document.getElementById("ej7contenedor");
+      cont.innerHTML = "";
+      
+      let contenidoHTML = '<div class="grid-container">';
+      
+      // Apartados a-d: Producto de potencias con el mismo exponente (a^m * b^m = (a*b)^m)
+      for (let i = 0; i < 4; i++) {
+        const base1 = Math.floor(Math.random() * 6) + 2; // Base 1 entre 2 y 7
+        const base2 = Math.floor(Math.random() * 6) + 2; // Base 2 entre 2 y 7
+        const exponente = Math.floor(Math.random() * 11) + 2; // Exponente entre 2 and 12
+        const baseResultado = base1 * base2;
+        
+        const idBase = "ej7_" + i + "_base";
+        const idExp = "ej7_" + i + "_exp";
+        soluciones[idBase] = baseResultado;
+        soluciones[idExp] = exponente;
+        
+        contenidoHTML += `
+          <div class="expresion-matematica">
+            <p>${String.fromCharCode(97+i)}) <span class="base">${base1}</span><sup>${exponente}</sup> · 
+            <span class="base">${base2}</span><sup>${exponente}</sup> = 
+            <span class="input-resultado">
+              <input type="number" id="${idBase}" class="base-input"><sup><input type="number" id="${idExp}" class="exp-input"></sup>
+            </span></p>
+          </div>
+        `;
+      }
+      
+      // Apartado e: Multiplicación de números repetidos (a·a·a·b·b·b = (a*b)^3)
+      const baseE1 = Math.floor(Math.random() * 4) + 2; // Base 1 entre 2 y 5
+      const baseE2 = Math.floor(Math.random() * 4) + 2; // Base 2 entre 2 y 5
+      const baseResultadoE = baseE1 * baseE2;
+      
+      const idBaseE = "ej7_4_base";
+      const idExpE = "ej7_4_exp";
+      soluciones[idBaseE] = baseResultadoE;
+      soluciones[idExpE] = 3;
+      
+      contenidoHTML += `
+        <div class="expresion-matematica">
+          <p>e) ${baseE1}·${baseE1}·${baseE1}·${baseE2}·${baseE2}·${baseE2} = 
+          <span class="input-resultado">
+            <input type="number" id="${idBaseE}" class="base-input"><sup><input type="number" id="${idExpE}" class="exp-input"></sup>
+            </span></p>
+        </div>
+      `;
+      
+      // Apartado f: División de potencias con base compuesta ((a*b)^m : (a*b)^n = (a*b)^(m-n))
+      const baseF1 = Math.floor(Math.random() * 7) + 2; // Base 1 entre 2 y 8
+      const baseF2 = Math.floor(Math.random() * 7) + 2; // Base 2 entre 2 y 8
+      const baseCompuesta = baseF1 * baseF2;
+      const expF1 = Math.floor(Math.random() * 5) + 4; // Exponente 1 entre 4 y 8
+      const expF2 = Math.floor(Math.random() * (expF1 - 1)) + 1; // Exponente 2 entre 1 y expF1-1
+      const expResultadoF = expF1 - expF2; // Resultado del exponente
+      
+      const idBaseF = "ej7_5_base";
+      const idExpF = "ej7_5_exp";
+      soluciones[idBaseF] = baseCompuesta;
+      soluciones[idExpF] = expResultadoF;
+      
+      contenidoHTML += `
+        <div class="expresion-matematica">
+          <p>f) (<span class="base">${baseF1}</span>·<span class="base">${baseF2}</span>)<sup>${expF1}</sup> : 
+          (<span class="base">${baseF1}</span>·<span class="base">${baseF2}</span>)<sup>${expF2}</sup> = 
+          <span class="input-resultado">
+            <input type="number" id="${idBaseF}" class="base-input"><sup><input type="number" id="${idExpF}" class="exp-input"></sup>
+          </span></p>
+        </div>
+      `;
+      
+      contenidoHTML += '</div>';
+      cont.innerHTML = contenidoHTML;
+    }
+
+    
+    // Generar Ejercicio 8: Completar igualdades
+    function generarEj8() {
+      const cont = document.getElementById("ej8contenedor");
+      cont.innerHTML = "";
+      
+      let contenidoHTML = '<div class="grid-container">';
+      
+      // Apartado a: Multiplicación de potencias con mismo exponente
+      const baseA1 = Math.floor(Math.random() * 9) + 1;
+      const baseA2 = Math.floor(Math.random() * 9) + 1;
+      const expA = Math.floor(Math.random() * 5) + 2;
+      const baseResultadoA = baseA1 * baseA2;
+      
+      soluciones["ej8_a_exp1"] = expA;
+      soluciones["ej8_a_exp2"] = expA;
+      
+      contenidoHTML += `
+        <div class="expresion-matematica">
+          <p>a) <span class="base">${baseA1}</span><sup><input type="number" id="ej8_a_exp1" class="exp-input"></sup> · 
+          <span class="base">${baseA2}</span><sup><input type="number" id="ej8_a_exp2" class="exp-input"></sup> = 
+          <span class="base">${baseResultadoA}</span><sup>${expA}</sup></p>
+        </div>
+      `;
+      
+      // Apartado b: División de potencias con mismo exponente
+      const baseB2 = Math.floor(Math.random() * 8) + 2;
+      const baseResultadoB = Math.floor(Math.random() * 5) + 2;
+      const baseB1 = baseB2 * baseResultadoB;
+      const expB = Math.floor(Math.random() * 5) + 2;
+      
+      soluciones["ej8_b_base"] = baseB1;
+      soluciones["ej8_b_exp"] = expB;
+      
+      contenidoHTML += `
+        <div class="expresion-matematica">
+          <p>b) <input type="number" id="ej8_b_base" class="base-input"><sup>${expB}</sup> : 
+          <span class="base">${baseB2}</span><sup>${expB}</sup> = 
+          <span class="base">${baseResultadoB}</span><sup><input type="number" id="ej8_b_exp" class="exp-input"></sup></p>
+        </div>
+      `;
+      
+      // Apartado c: Multiplicación de potencias con mismo exponente
+      const baseC1 = Math.floor(Math.random() * 9) + 1;
+      const baseC2 = Math.floor(Math.random() * 9) + 1;
+      const expC = Math.floor(Math.random() * 5) + 2;
+      const baseResultadoC = baseC1 * baseC2;
+      
+      soluciones["ej8_c_exp"] = expC;
+      soluciones["ej8_c_base"] = baseResultadoC;
+      
+      contenidoHTML += `
+        <div class="expresion-matematica">
+          <p>c) <span class="base">${baseC1}</span><sup>${expC}</sup> · 
+          <span class="base">${baseC2}</span><sup><input type="number" id="ej8_c_exp" class="exp-input"></sup> = 
+          <input type="number" id="ej8_c_base" class="base-input"><sup>${expC}</sup></p>
+        </div>
+      `;
+      
+      // Apartado d: División de potencias con mismo exponente (corregido)
+      const baseD2 = Math.floor(Math.random() * 8) + 2;
+      const baseResultadoD = Math.floor(Math.random() * 5) + 2;
+      const baseD1 = baseD2 * baseResultadoD; // Asegura división exacta
+      const expD = Math.floor(Math.random() * 5) + 2;
+      
+      soluciones["ej8_d_base"] = baseD2;
+      soluciones["ej8_d_exp"] = expD;
+      
+      contenidoHTML += `
+        <div class="expresion-matematica">
+          <p>d) <span class="base">${baseD1}</span><sup>${expD}</sup> : 
+          <input type="number" id="ej8_d_base" class="base-input"><sup><input type="number" id="ej8_d_exp" class="exp-input"></sup> = 
+          <span class="base">${baseResultadoD}</span><sup>${expD}</sup></p>
+        </div>
+      `;
+      
+      contenidoHTML += '</div>';
+      cont.innerHTML = contenidoHTML;
+    }
+
+
+    function generarEj9() {
+      const cont = document.getElementById("ej9contenedor");
+      cont.innerHTML = "";
+      
+      let contenidoHTML = '<div class="grid-container">';
+      
+      // Apartado a: (x^3)^4 · (y^4)^3 = z^6
+      // x^12 · y^12 = z^6 => (x·y)^12 = z^6 => z = (x·y)^2
+      const x = Math.floor(Math.random() * 9) + 1; // x entre 1 y 9
+      const y = Math.floor(Math.random() * 9) + 1; // y entre 1 y 9
+      const z = Math.pow(x * y, 2); // z = (x·y)^2
+      
+      soluciones["ej9_a_exp"] = 3;
+      soluciones["ej9_a_base"] = z;
+      
+      contenidoHTML += `
+        <div class="expresion-matematica">
+          <p>a) (<span class="base">${x}</span><sup>3</sup>)<sup>4</sup> · 
+          (<span class="base">${y}</span><sup>4</sup>)<sup><input type="number" id="ej9_a_exp" class="exp-input"></sup> = 
+          <input type="number" id="ej9_a_base" class="base-input"><sup>6</sup></p>
+        </div>
+      `;
+      
+      // Apartado b: m^n · p^n : q^2 = 1
+      // (m·p)^n : q^2 = 1 => q^2 = (m·p)^n => q = (m·p)^(n/2)
+      const nValores = [4, 6, 8];
+      const n = nValores[Math.floor(Math.random() * 3)]; // n puede ser 4, 6 u 8
+      const m = Math.floor(Math.random() * 9) + 1; // m entre 1 y 9
+      const p = Math.floor(Math.random() * 9) + 1; // p entre 1 y 9
+      const q = Math.pow(m * p, n/2); // q = (m·p)^(n/2)
+      
+      soluciones["ej9_b_p"] = p;
+      soluciones["ej9_b_q"] = q;
+      
+      contenidoHTML += `
+        <div class="expresion-matematica">
+          <p>b) <span class="base">${m}</span><sup>${n}</sup> · 
+          <input type="number" id="ej9_b_p" class="base-input"><sup>${n}</sup> : 
+          <input type="number" id="ej9_b_q" class="base-input"><sup>2</sup> = 1</p>
+        </div>
+      `;
+      
+      contenidoHTML += '</div>';
+      cont.innerHTML = contenidoHTML;
+    }
+
+    // Función para generar una nueva hoja de ejercicios
+    function generarNuevaHoja() {
+      generarTodosEjercicios();
+      // Limpiar resultados anteriores
+      for (let i = 1; i <= totalEjercicios; i++) {
+        document.getElementById("res" + i).innerText = "";
+        document.getElementById("res" + i).className = "resultado";
+      }
+      document.getElementById("estado").innerText = "";
+      document.getElementById("estado").className = "";
+    }
+
+    function comprobar() {
+      let c1 = 0, c2 = 0, c3 = 0, c4 = 0, c5 = 0, c6 = 0, c7 = 0, c8 = 0, c9 = 0;
+
+      for (let i = 0; i < 4; i++) {
+        const id = 'ej1_' + i;
+        const v = parseInt(document.getElementById(id).value);
+        if (v === soluciones[id]) c1++;
+      }
+      for (let i = 0; i < 6; i++) {
+        const id = 'ej2_' + i;
+        const v = parseInt(document.getElementById(id).value);
+        if (v === soluciones[id]) c2++;
+      }
+      for (let i = 0; i < 3; i++) {
+        const id = 'ej3_' + i;
+        const v = parseInt(document.getElementById(id).value);
+        if (v === soluciones[id]) c3++;
+      }
+      
+      // Comprobar ejercicio 4
+      const base4 = parseInt(document.getElementById("ej4_base").value);
+      const exp4 = parseInt(document.getElementById("ej4_exp").value);
+      if (base4 === soluciones["ej4_base"] && exp4 === soluciones["ej4_exp"]) {
+        c4 = 1;
+      }
+      
+      // Comprobar ejercicio 5
+      const ej5a = parseInt(document.getElementById("ej5_a").value);
+      const ej5b = parseInt(document.getElementById("ej5_b").value);
+      if (ej5a === soluciones["ej5_a"]) c5++;
+      if (ej5b === soluciones["ej5_b"]) c5++;
+      
+      // Comprobar ejercicio 6
+      for (let i = 0; i < 6; i++) {
+        const id = 'ej6_' + i;
+        const v = parseInt(document.getElementById(id).value);
+        if (v === soluciones[id]) c6++;
+      }
+      
+      // Comprobar ejercicio 7
+      for (let i = 0; i < 6; i++) {
+        const idBase = 'ej7_' + i + '_base';
+        const idExp = 'ej7_' + i + '_exp';
+        const base = parseInt(document.getElementById(idBase).value);
+        const exp = parseInt(document.getElementById(idExp).value);
+        if (base === soluciones[idBase] && exp === soluciones[idExp]) {
+          c7++;
+        }
+      }
+      
+      // Comprobar ejercicio 8
+      const ej8_a_exp1 = parseInt(document.getElementById("ej8_a_exp1").value);
+      const ej8_a_exp2 = parseInt(document.getElementById("ej8_a_exp2").value);
+      if (ej8_a_exp1 === soluciones["ej8_a_exp1"] && ej8_a_exp2 === soluciones["ej8_a_exp2"]) c8++;
+      
+      const ej8_b_base = parseInt(document.getElementById("ej8_b_base").value);
+      const ej8_b_exp = parseInt(document.getElementById("ej8_b_exp").value);
+      if (ej8_b_base === soluciones["ej8_b_base"] && ej8_b_exp === soluciones["ej8_b_exp"]) c8++;
+      
+      const ej8_c_exp = parseInt(document.getElementById("ej8_c_exp").value);
+      const ej8_c_base = parseInt(document.getElementById("ej8_c_base").value);
+      if (ej8_c_exp === soluciones["ej8_c_exp"] && ej8_c_base === soluciones["ej8_c_base"]) c8++;
+      
+      const ej8_d_base = parseInt(document.getElementById("ej8_d_base").value);
+      const ej8_d_exp = parseInt(document.getElementById("ej8_d_exp").value);
+      if (ej8_d_base === soluciones["ej8_d_base"] && ej8_d_exp === soluciones["ej8_d_exp"]) c8++;
+      
+      // Comprobar ejercicio 9
+      const ej9_a_exp = parseInt(document.getElementById("ej9_a_exp").value);
+      const ej9_a_base = parseInt(document.getElementById("ej9_a_base").value);
+      if (ej9_a_exp === soluciones["ej9_a_exp"] && ej9_a_base === soluciones["ej9_a_base"]) c9++;
+      
+      const ej9_b_p = parseInt(document.getElementById("ej9_b_p").value);
+      const ej9_b_q = parseInt(document.getElementById("ej9_b_q").value);
+      if (ej9_b_p === soluciones["ej9_b_p"] && ej9_b_q === soluciones["ej9_b_q"]) c9++;
+
+      const p1 = Math.round((c1/4)*100);
+      const p2 = Math.round((c2/6)*100);
+      const p3 = Math.round((c3/3)*100);
+      const p4 = c4 * 100; // Solo una pregunta en el ejercicio 4
+      const p5 = Math.round((c5/2)*100); // Dos preguntas en el ejercicio 5
+      const p6 = Math.round((c6/6)*100); // Seis preguntas en el ejercicio 6
+      const p7 = Math.round((c7/6)*100); // Seis preguntas en el ejercicio 7
+      const p8 = Math.round((c8/4)*100); // Cuatro preguntas en el ejercicio 8
+      const p9 = Math.round((c9/2)*100); // Dos preguntas en el ejercicio 9
+
+      // Nota global ponderada por ejercicio
+      nota = Math.round((p1 + p2 + p3 + p4 + p5 + p6 + p7 + p8 + p9)/totalEjercicios);
+
+      // Actualizar resultados con colores
+      document.getElementById("res1").innerText = "Ejercicio 1: " + p1 + "%";
+      document.getElementById("res1").className = "resultado " + (p1 === 100 ? "correcto" : "incorrecto");
+      
+      document.getElementById("res2").innerText = "Ejercicio 2: " + p2 + "%";
+      document.getElementById("res2").className = "resultado " + (p2 === 100 ? "correcto" : "incorrecto");
+      
+      document.getElementById("res3").innerText = "Ejercicio 3: " + p3 + "%";
+      document.getElementById("res3").className = "resultado " + (p3 === 100 ? "correcto" : "incorrecto");
+      
+      document.getElementById("res4").innerText = "Ejercicio 4: " + p4 + "%";
+      document.getElementById("res4").className = "resultado " + (p4 === 100 ? "correcto" : "incorrecto");
+      
+      document.getElementById("res5").innerText = "Ejercicio 5: " + p5 + "%";
+      document.getElementById("res5").className = "resultado " + (p5 === 100 ? "correcto" : "incorrecto");
+      
+      document.getElementById("res6").innerText = "Ejercicio 6: " + p6 + "%";
+      document.getElementById("res6").className = "resultado " + (p6 === 100 ? "correcto" : "incorrecto");
+      
+      document.getElementById("res7").innerText = "Ejercicio 7: " + p7 + "%";
+      document.getElementById("res7").className = "resultado " + (p7 === 100 ? "correcto" : "incorrecto");
+      
+      document.getElementById("res8").innerText = "Ejercicio 8: " + p8 + "%";
+      document.getElementById("res8").className = "resultado " + (p8 === 100 ? "correcto" : "incorrecto");
+      
+      document.getElementById("res9").innerText = "Ejercicio 9: " + p9 + "%";
+      document.getElementById("res9").className = "resultado " + (p9 === 100 ? "correcto" : "incorrecto");
+      
+      document.getElementById("estado").innerText = "Nota global: " + nota + "%";
+      document.getElementById("estado").className = nota >= 50 ? "enviado" : "error";
+    }
+
+    
+    function enviarResultados() {
+      let centro = "IES Sardiñeira";
+      let curso = document.getElementById("curso").value;
+      let clase = document.getElementById("clase").value;
+      let numero = document.getElementById("numero").value;
+      let tema = "Potencias";
+      let fecha = new Date().toLocaleString("es-ES"); // Fecha y hora local
+      let nick = localStorage.getItem("nick");
+
+      // Enviar resultados a Google Sheets
+      fetch("https://script.google.com/macros/s/AKfycby89xa81oPMCBw_x1N7Lj-EATfgBw7xRIjEQHnUVb1nahpMkei-D84ozfoUoXBZQqrb/exec", {
+        method: "POST",
+        body: JSON.stringify({ fecha, centro, curso, clase, numero, tema, nota, nick })
+      })
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById("estado").innerText = "✅ Resultados enviados correctamente. Nota: " + nota + "%";
+        document.getElementById("estado").className = "enviado";
+      })
+      .catch(err => {
+        document.getElementById("estado").innerText = "❌ Error al enviar";
+        document.getElementById("estado").className = "error";
+      });
+    }
+
+  </script>
+</body>
+</html>
