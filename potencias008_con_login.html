@@ -520,7 +520,6 @@
       cont.innerHTML = contenidoHTML;
     }
 
-    
     // Generar Ejercicio 8: Completar igualdades
     function generarEj8() {
       const cont = document.getElementById("ej8contenedor");
@@ -546,9 +545,10 @@
       `;
       
       // Apartado b: División de potencias con mismo exponente
+      // Asegurar que el resultado es entero
       const baseB2 = Math.floor(Math.random() * 8) + 2;
       const baseResultadoB = Math.floor(Math.random() * 5) + 2;
-      const baseB1 = baseB2 * baseResultadoB;
+      const baseB1 = baseB2 * baseResultadoB; // Para asegurar división exacta
       const expB = Math.floor(Math.random() * 5) + 2;
       
       soluciones["ej8_b_base"] = baseB1;
@@ -579,10 +579,11 @@
         </div>
       `;
       
-      // Apartado d: División de potencias con mismo exponente (corregido)
-      const baseD2 = Math.floor(Math.random() * 8) + 2;
+      // Apartado d: División de potencias con mismo exponente
+      // Asegurar que el resultado es entero
+      const baseD1 = Math.floor(Math.random() * 9) + 1;
       const baseResultadoD = Math.floor(Math.random() * 5) + 2;
-      const baseD1 = baseD2 * baseResultadoD; // Asegura división exacta
+      const baseD2 = baseD1 / baseResultadoD; // Para asegurar división exacta
       const expD = Math.floor(Math.random() * 5) + 2;
       
       soluciones["ej8_d_base"] = baseD2;
@@ -600,7 +601,7 @@
       cont.innerHTML = contenidoHTML;
     }
 
-
+    // Generar Ejercicio 9: Potencias combinadas
     function generarEj9() {
       const cont = document.getElementById("ej9contenedor");
       cont.innerHTML = "";
@@ -787,12 +788,12 @@
       let clase = document.getElementById("clase").value;
       let numero = document.getElementById("numero").value;
       let tema = "Potencias";
-      let fecha = new Date().toLocaleString("es-ES"); // Fecha y hora local
+      let fecha = new Date().toLocaleString("es-ES");
       let nick = localStorage.getItem("nick");
 
-      // Enviar resultados a Google Sheets
-      fetch("https://script.google.com/macros/s/AKfycbzjSiF0dVnfi79SamTg2b_XN51_Dk7gwIvB-dCYCgSMuEIskqFPQI1fHUgiKWlmPQJ_/exec", {
+      fetch("https://script.google.com/macros/s/AKfycbzjSiF0dVnfi79SamTg2b_XN51_Dk7gwIvB-dCYCgSMuEIskqFPQI1fHUgiKWlmPQJ_/exec?path=exec", {
         method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ fecha, centro, curso, clase, numero, tema, nota, nick })
       })
       .then(res => res.text())

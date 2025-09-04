@@ -20,8 +20,9 @@
         nick: document.getElementById("nick").value,
         password: document.getElementById("password").value
       };
-      fetch("https://script.google.com/macros/s/AKfycbzjSiF0dVnfi79SamTg2b_XN51_Dk7gwIvB-dCYCgSMuEIskqFPQI1fHUgiKWlmPQJ_/exec/login", {
+      fetch("https://script.google.com/macros/s/AKfycbzjSiF0dVnfi79SamTg2b_XN51_Dk7gwIvB-dCYCgSMuEIskqFPQI1fHUgiKWlmPQJ_/exec?path=login", {
         method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data)
       })
       .then(r => r.json())

@@ -40,8 +40,9 @@
         curso: document.getElementById("curso").value,
         clase: document.getElementById("clase").value
       };
-      fetch("https://script.google.com/macros/s/AKfycbzjSiF0dVnfi79SamTg2b_XN51_Dk7gwIvB-dCYCgSMuEIskqFPQI1fHUgiKWlmPQJ_/exec/registro", {
+      fetch("https://script.google.com/macros/s/AKfycbzjSiF0dVnfi79SamTg2b_XN51_Dk7gwIvB-dCYCgSMuEIskqFPQI1fHUgiKWlmPQJ_/exec?path=registro", {
         method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data)
       })
       .then(r => r.text())
